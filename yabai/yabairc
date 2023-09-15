@@ -66,6 +66,7 @@ yabai -m rule --add app="^Preview$" manage=off
 yabai -m rule --add app="^IINA" manage=off
 yabai -m rule --add app="^Calendar$" title="(General|^$)" manage=off
 yabai -m rule --add app="^iStat"  manage=off
+yabai -m rule --add label="DataGrip" app="^DataGrip$" title="^(Rename|Modify)" manage=off
 
 
 yabai
