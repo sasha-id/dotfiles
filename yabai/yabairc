@@ -69,6 +69,10 @@ yabai -m rule --add label="DataGrip" app="^DataGrip$" title="^(Rename|Modify)" m
 yabai -m rule --add label="DataGrip" app="^DataGrip$" title="(Settings)" manage=off
 yabai -m rule --add app="^IINA$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Stats$" manage=off
+yabai -m rule --add app="^Disk Utility" layer=above manage=off
+yabai -m rule --add app="^Transmission$" layer=above manage=off
+yabai -m rule --add app="^Adobe Photo" manage=off
+
 
 
 yabai

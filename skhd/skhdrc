@@ -70,3 +70,4 @@ ctrl + alt - r : yabai --restart-service
 # Apps
 ctrl + cmd - k : open -a /System/Applications/Calendar.app
 ctrl + cmd - m : open -a /System/Applications/Mail.app
+ctrl + cmd - p : open -a /Applications/PureVPN.app
