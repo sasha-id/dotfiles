@@ -68,19 +68,19 @@ source "$ITEM_DIR/front_app.sh"
 
 # Right
 source "$ITEM_DIR/calendar.sh"
-sketchybar --add alias "TextInputMenuAgent,Item-0" right 
-           --set "TextInputMenuAgent,Item-0" padding_right=10 label.width=0 update_freq=1
+
+sketchybar --add alias "TextInputMenuAgent,Item-0" right \
+           --set "TextInputMenuAgent,Item-0" padding_left=0 padding_right=10 label.width=0 update_freq=1
+
+sketchybar --add alias "PureVPN,Item-0" right \
+           --set "PureVPN,Item-0" padding_left=0 padding_right=-5 label.width=0 update_freq=5 \
+                 click_script="open -a /Applications/PureVPN.app"
+
 source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
-
-sketchybar --add alias "iStat Menus Status,com.bjango.istatmenus.cpu" right \
-           --set "iStat Menus Status,com.bjango.istatmenus.cpu" padding_right=5 label.width=0
-sketchybar --add alias "iStat Menus Status,com.bjango.istatmenus.memory" right \
-           --set "iStat Menus Status,com.bjango.istatmenus.memory" paddng_right=5 label.width=0
-sketchybar --add alias "iStat Menus Status,com.bjango.istatmenus.network" right  \
-           --set "iStat Menus Status,com.bjango.istatmenus.network" padding_right=0 label.width=0
-
+#source "$ITEM_DIR/imenu_stats.sh"
+source "$ITEM_DIR/stats.sh"
 
 
 status_bracket=(
@@ -95,3 +95,4 @@ sketchybar --add bracket status "TextInputMenuAgent,Item-0" wifi battery github.
 sketchybar --update
 
 echo "sketchybar configuation loaded.."
+

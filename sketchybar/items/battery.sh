@@ -8,6 +8,7 @@ battery=(
   label.drawing=off
   update_freq=120
   updates=on
+  click_script="open -a /System/Applications/Utilities/Activity\ Monitor.app"
 )
 
 sketchybar --add item battery right      \
