@@ -9,6 +9,6 @@ front_app=(
   script="$FRONT_APP_SCRIPT"
 )
 
-sketchybar --add item front_app q       \
+sketchybar --add item front_app e       \
            --set front_app "${front_app[@]}" \
            --subscribe front_app front_app_switched

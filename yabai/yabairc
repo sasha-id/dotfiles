@@ -44,7 +44,7 @@ yabai -m config focus_follows_mouse autofocus
 
 
 # modifier for clicking and dragging with mouse
-yabai -m config mouse_modifier alt
+yabai -m config mouse_modifier fn
 # set modifier + left-click drag to move window
 yabai -m config mouse_action1 move
 # set modifier + right-click drag to resize window
@@ -65,14 +65,18 @@ yabai -m rule --add app="^PureVPN$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Preview$" manage=off
 yabai -m rule --add app="^Calendar$" title="(General|^$)" manage=off
 yabai -m rule --add app="^iStat"  manage=off
-yabai -m rule --add label="DataGrip" app="^DataGrip$" title="^(Rename|Modify)" manage=off
-yabai -m rule --add label="DataGrip" app="^DataGrip$" title="(Settings)" manage=off
+yabai -m rule --add label="DataGrip" app="^DataGrip$" title="^(Rename|Modify|Data Sources|Database Color|Settings)" manage=off
 yabai -m rule --add app="^IINA$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Stats$" manage=off
 yabai -m rule --add app="^Disk Utility" layer=above manage=off
 yabai -m rule --add app="^Transmission$" layer=above manage=off
 yabai -m rule --add app="^Adobe Photo" manage=off
+yabai -m rule --add app="^Bitwarden" manage=off
+# yabai -m rule --add app="^MacDown" manage=off
 
+yabai -m rule --add app="^Microsoft Excel" manage=off
+yabai -m rule --add app="^Microsoft Word" manage=off
+yabai -m rule --add app="^Affinity Photo" manage=off
 
 
 yabai

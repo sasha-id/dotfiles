@@ -64,9 +64,9 @@ sketchybar  --bar "${bar[@]}" --default "${defaults[@]}"
 source "$ITEM_DIR/apple.sh"
 source "$ITEM_DIR/spaces.sh"
 source "$ITEM_DIR/yabai.sh"
-source "$ITEM_DIR/front_app.sh"
 
 # Right
+source "$ITEM_DIR/front_app.sh"
 source "$ITEM_DIR/calendar.sh"
 
 sketchybar --add alias "TextInputMenuAgent,Item-0" right \
