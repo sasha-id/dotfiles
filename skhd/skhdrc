@@ -71,3 +71,8 @@ ctrl + alt - r : yabai --restart-service
 ctrl + cmd - k : open -a /System/Applications/Calendar.app
 ctrl + cmd - m : open -a /System/Applications/Mail.app
 ctrl + cmd - p : open -a /Applications/PureVPN.app
+ctrl + cmd - i : open -a /System/Library/CoreServices/Finder.app
+
+
+# ctrl + = with passthrough, activate menubar and move mouse
+ctrl - 0x32 -> : /usr/bin/python3 /Users/sash/.config/scripts/move_mouse_top_left_corner.py
