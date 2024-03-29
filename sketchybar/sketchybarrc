@@ -72,15 +72,23 @@ source "$ITEM_DIR/calendar.sh"
 sketchybar --add alias "TextInputMenuAgent,Item-0" right \
            --set "TextInputMenuAgent,Item-0" padding_left=0 padding_right=10 label.width=0 update_freq=1
 
+sketchybar --add alias "Control Center,WiFi" right \
+           --set "Control Center,WiFi" padding_left=0 padding_right=-15 label.width=0 update_freq=1
+
+
 sketchybar --add alias "PureVPN,Item-0" right \
-           --set "PureVPN,Item-0" padding_left=0 padding_right=-5 label.width=0 update_freq=5 \
+           --set "PureVPN,Item-0" padding_left=0 padding_right=-15 label.width=0 update_freq=5 \
                  click_script="open -a /Applications/PureVPN.app"
 
-source "$ITEM_DIR/wifi.sh"
+# source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
 #source "$ITEM_DIR/imenu_stats.sh"
 source "$ITEM_DIR/stats.sh"
+
+sketchybar --add alias "Quick Note,Item-0" right \
+           --set "Quick Note,Item-0" padding_left=0 padding_right=-10 label.width=0 update_freq=5 \
+                 click_script="open -a /Applications/Quick\ Note.app"
 
 
 status_bracket=(
