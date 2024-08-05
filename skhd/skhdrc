@@ -81,14 +81,18 @@ ctrl + alt - r : yabai --restart-service
 ctrl + cmd - k : open -a /System/Applications/Calendar.app
 ctrl + cmd - m : open -a /System/Applications/Mail.app
 ctrl + cmd - p : open -a /Applications/PureVPN.app
-ctrl + cmd - n : open -a /System/Applications/Notes.app
+ctrl + cmd - n : for wid in $(yabai -m query --windows | jq '.[] | select(.app? == "Notes") | .id'); do yabai -m window $wid --space mouse --focus; done; \
+                  open -a /System/Applications/Notes.app
 
 ctrl + cmd - i : open -a /System/Library/CoreServices/Finder.app; for wid in $(yabai -m query --windows | jq '.[] | select(.app == "Finder") | .id'); do yabai -m window $wid --space mouse --focus; done
 ctrl + cmd + shift - i : osascript -e 'set myTarget to ((path to home folder) as text)' -e 'tell application "Finder" to make new Finder window to folder myTarget' -e 'tell application "Finder" to make activate'
 
-
+# Move 1st if already open; otherwise it will switich to current app space
+ctrl + cmd - t : for wid in $(yabai -m query --windows | jq '.[] | select(.app? | match("Microsoft Teams")) | .id'); do yabai -m window $wid --space mouse --focus; done; \
+                 open -a "/Applications/Microsoft Teams (work or school).app";
+                 
 
 
 
 # ctrl + = with passthrough, activate menubar and move mouse
-ctrl - 0x32 : /usr/bin/python3 /Users/sash/.config/scripts/move_mouse_top_left_corner.py
+# ctrl - 0x32 : /usr/bin/python3 /Users/sash/.config/scripts/move_mouse_top_left_corner.py
