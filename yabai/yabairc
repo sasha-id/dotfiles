@@ -12,6 +12,10 @@ yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yab
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 
+yabai -m signal --add event=application_front_switched action="yabai -m window --sub-layer normal"
+
+
+
 $HOME/.config/yabai/create_spaces.sh
 
 
@@ -19,6 +23,7 @@ $HOME/.config/yabai/create_spaces.sh
 yabai -m config layout bsp
 
 yabai -m rule --add app=".*" sub-layer=normal
+yabai -m rule --apply
 
 yabai -m config window_border off
 yabai -m config window_border_width        2
@@ -30,7 +35,7 @@ yabai -m config normal_window_border_color 0xff494d64
 yabai -m config insert_feedback_color      0xff9dd274
 
 # Status bar
-#yabai -m config external_bar               all:30:0
+yabai -m config external_bar               all:-3:0
 
 # New window spawns to the right if vertical split, or bottom if horizontal split
 yabai -m config window_placement second_child
@@ -61,14 +66,15 @@ yabai -m mouse_drop_action swap
 
 
 yabai -m rule --add app="^(LuLu|Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor)$" manage=off
-yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
-yabai -m rule --add app="Finder" manage=off
+#yabai -m rule --add label="Finder" app="Finder" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+#yabai -m rule --add app="Finder" manage=off
+yabai -m rule --add app="Path Finder" manage=on
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
 yabai -m rule --add app="^PureVPN$" manage=off
 yabai -m rule --add app="^Pritunl" sub-layer=above manage=off
-yabai -m rule --add app="^Preview$" manage=off
+#yabai -m rule --add app="^Preview$" manage=off
 yabai -m rule --add app="^Calendar$" title="(General|^$)" manage=off
 yabai -m rule --add app="^iStat"  manage=off
 yabai -m rule --add label="DataGrip" app="^DataGrip$" title="^(Rename|Modify|Data Sources|Database Color|Settings)" manage=off
@@ -88,12 +94,14 @@ yabai -m rule --add app="^rekordbox" manage=off
 yabai -m rule --add app="Notes" manage=off
 yabai -m rule --add app="AnkerWork" manage=off
 yabai -m rule --add app="Parallels" manage=off
+#yabai -m rule --add app="^Microsoft Excel" manage=off
+#yabai -m rule --add app="^Microsoft Word" manage=off
+#yabai -m rule --add app="^Archicad"  manage=off
 
 
 
-yabai -m rule --add app="^Microsoft Teams" manage=off
-yabai -m rule --add app="^Microsoft Excel" manage=off
-yabai -m rule --add app="^Microsoft Word" manage=off
+#yabai -m rule --add app="^Microsoft Teams" manage=off
+
 yabai -m rule --add app="^Affinity Photo" manage=off
 yabai -m rule --add app="^≈" title="^Vivaldi Settings" manage=off
 
@@ -101,7 +109,6 @@ yabai -m rule --add app="^zoom.us" sub-layer=above manage=off
 yabai -m rule --add app="Epic*" manage=off
 yabai -m rule --add app="Twinmotion*" manage=off
 yabai -m rule --add app="Adobe*" manage=off
-yabai -m rule --add app="^Archicad"  manage=off
 
 yabai -m rule --add app="Fonts*" manage=off
 yabai -m rule --add app="Font Book" manage=off
@@ -156,6 +163,18 @@ yabai -m signal --add event=application_hidden app=^DaVinci action="yabai -m con
 yabai -m signal --add event=window_destroyed app=^DaVinci action="yabai -m config focus_follows_mouse autofocus"
 yabai -m signal --add event=window_minimized app=^DaVinci action="yabai -m config focus_follows_mouse autofocus"
 
+# disable focus_follows_mouse when a Microsoft Excel app window is focused
+yabai -m signal --add event=window_focused app="^Microsoft Excel" action="yabai -m config focus_follows_mouse off"
+# renable focus_follows_mouse autofocus after Microsoft Excel meeting is finished
+yabai -m signal --add event=application_front_switched app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
+yabai -m signal --add event=application_terminated app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
+yabai -m signal --add event=application_hidden app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
+yabai -m signal --add event=window_destroyed app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
+yabai -m signal --add event=window_minimized app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
 
-yabai
+yabai -m config window_opacity on
+yabai -m config window_opacity_duration 0.0
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.9
+
 

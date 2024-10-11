@@ -22,22 +22,22 @@ ctrl + alt - right : yabai -m window --swap east
 #shift + alt - n : yabai -m window --space next;
 
 # move window to space #
-shift + alt - 1 : yabai -m window --space 1;
-shift + alt - 2 : yabai -m window --space 2;
-shift + alt - 3 : yabai -m window --space 3;
-shift + alt - 4 : yabai -m window --space 4;
-shift + alt - 5 : yabai -m window --space 5;
-shift + alt - 6 : yabai -m window --space 6;
-shift + alt - 7 : yabai -m window --space 7;
+#alt - 1 : yabai -m window --space 1 --focus;
+#alt - 2 : yabai -m window --space 2 --focus;
+#alt - 3 : yabai -m window --space 3 --focus;
+#alt - 4 : yabai -m window --space 4 --focus;
+#alt - 5 : yabai -m window --space 5 --focus;
+#alt - 6 : yabai -m window --space 6 --focus;
+#alt - 7 : yabai -m window --space 7 --focus;
 
 # Spaces
-#cmd - 1 : yabai -m space --focus "1";
-#cmd - 2 : yabai -m space --focus "2";
-#cmd - 3 : yabai -m space --focus "3";
-#cmd - 4 : yabai -m space --focus "4";
-#cmd - 5 : yabai -m space --focus "5";
-#cmd - 6 : yabai -m space --focus "6";
-#cmd - 7 : yabai -m space --focus "7";
+cmd - 1 : yabai -m space --focus "1";
+cmd - 2 : yabai -m space --focus "2";
+cmd - 3 : yabai -m space --focus "3";
+cmd - 4 : yabai -m space --focus "4";
+cmd - 5 : yabai -m space --focus "5";
+cmd - 6 : yabai -m space --focus "6";
+cmd - 7 : yabai -m space --focus "7";
 
 
 # move window to display left and right
@@ -79,20 +79,22 @@ ctrl + alt - r : yabai --restart-service
 
 # Apps
 ctrl + cmd - k : open -a /System/Applications/Calendar.app
+ctrl + cmd - c : for wid in $(yabai -m query --windows | jq '.[] | select(.app? == "Calculator") | .id'); do yabai -m window $wid --space mouse --focus; done; \
+                  open -a /System/Applications/Calculator.app
 ctrl + cmd - m : open -a /System/Applications/Mail.app
 ctrl + cmd - p : open -a /Applications/PureVPN.app
 ctrl + cmd - n : for wid in $(yabai -m query --windows | jq '.[] | select(.app? == "Notes") | .id'); do yabai -m window $wid --space mouse --focus; done; \
                   open -a /System/Applications/Notes.app
 
-ctrl + cmd - i : open -a /System/Library/CoreServices/Finder.app; for wid in $(yabai -m query --windows | jq '.[] | select(.app == "Finder") | .id'); do yabai -m window $wid --space mouse --focus; done
-ctrl + cmd + shift - i : osascript -e 'set myTarget to ((path to home folder) as text)' -e 'tell application "Finder" to make new Finder window to folder myTarget' -e 'tell application "Finder" to make activate'
+ctrl + cmd - i : for wid in $(yabai -m query --windows | jq '.[] | select(.app == "ForkLift") | .id'); do yabai -m window $wid --space mouse --focus; done; open -a "/Applications/ForkLift.app";
 
 # Move 1st if already open; otherwise it will switich to current app space
 ctrl + cmd - t : for wid in $(yabai -m query --windows | jq '.[] | select(.app? | match("Microsoft Teams")) | .id'); do yabai -m window $wid --space mouse --focus; done; \
                  open -a "/Applications/Microsoft Teams (work or school).app";
                  
+alt + cmd - r: killall "Bartender 5"; open -a "/Applications/Bartender 5.app"  
 
-
+cmd + alt - q: osascript -e 'tell application "Terminal" to do script "yabai -m query --windows"'
 
 # ctrl + = with passthrough, activate menubar and move mouse
 # ctrl - 0x32 : /usr/bin/python3 /Users/sash/.config/scripts/move_mouse_top_left_corner.py
