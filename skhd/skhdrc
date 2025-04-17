@@ -90,7 +90,7 @@ ctrl + cmd - i : for wid in $(yabai -m query --windows | jq '.[] | select(.app =
 
 # Move 1st if already open; otherwise it will switich to current app space
 ctrl + cmd - t : for wid in $(yabai -m query --windows | jq '.[] | select(.app? | match("Microsoft Teams")) | .id'); do yabai -m window $wid --space mouse --focus; done; \
-                 open -a "/Applications/Microsoft Teams (work or school).app";
+                 open -a "/Applications/Microsoft Teams.app";
                  
 alt + cmd - r: killall "Bartender 5"; open -a "/Applications/Bartender 5.app"  
 
