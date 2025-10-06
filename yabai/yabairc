@@ -8,7 +8,7 @@ yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yab
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 
-yabai -m signal --add event=application_front_switched action="yabai -m window --sub-layer normal"
+#yabai -m signal --add event=application_front_switched action="yabai -m window --sub-layer normal"
 
 
 
@@ -18,16 +18,9 @@ $HOME/.config/yabai/create_spaces.sh
 # default layout (can be bsp, stack or float)
 yabai -m config layout bsp
 
-yabai -m rule --add app=".*" sub-layer=normal
+#yabai -m rule --add app=".*" sub-layer=normal
 yabai -m rule --apply
 
-yabai -m config window_border off
-yabai -m config window_border_width        2
-yabai -m config window_border_hidpi        off
-yabai -m config window_border_radius       12
-yabai -m config window_border_blur         off
-yabai -m config active_window_border_color 0xff8aadf4
-yabai -m config normal_window_border_color 0xff494d64
 yabai -m config insert_feedback_color      0xff9dd274
 
 # Status bar
@@ -45,8 +38,8 @@ yabai -m config window_gap 6
 
 
 # center mouse on window with focus
-# yabai -m config mouse_follows_focus on
-yabai -m config focus_follows_mouse autofocus
+yabai -m config mouse_follows_focus off
+yabai -m config focus_follows_mouse autoraise
 
 
 # modifier for clicking and dragging with mouse
@@ -57,8 +50,6 @@ yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
 
 
-# when window is dropped in center of another window, swap them (on edges it will split it)
-yabai -m mouse_drop_action swap
 
 
 yabai -m rule --add app="^(LuLu|Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor)$" manage=off
@@ -69,18 +60,20 @@ yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
 yabai -m rule --add app="^PureVPN$" manage=off
-yabai -m rule --add app="^Pritunl" sub-layer=above manage=off
 #yabai -m rule --add app="^Preview$" manage=off
 yabai -m rule --add app="^Calendar$" title="(General|^$)" manage=off
 yabai -m rule --add app="^iStat"  manage=off
 yabai -m rule --add label="DataGrip" app="^DataGrip$" title="^(Rename|Modify|Data Sources|Database Color|Settings)" manage=off
 yabai -m rule --add app="^IINA" manage=off
 yabai -m rule --add app="^Stats$" manage=off
-yabai -m rule --add app="^Disk Utility" sub-layer=above manage=off
-yabai -m rule --add app="^Transmission$" sub-layer=above manage=off
 #yabai -m rule --add app="^Adobe" manage=off
 #yabai -m rule --add app="^InDesign" manage=off
 yabai -m rule --add app="^Bitwarden" sticky=on manage=off sub-layer=above
+yabai -m rule --add app="^Disk Utility" sub-layer=above manage=off
+yabai -m rule --add app="^Transmission$" sub-layer=above manage=off
+yabai -m rule --add app="^Pritunl" sub-layer=above manage=off
+yabai -m rule --add app="^zoom.us" sub-layer=above manage=off
+
 # yabai -m rule --add app="^MacDown" manage=off
 yabai -m rule --add app="^Stickies" manage=off
 yabai -m rule --add app="^Engine DJ" manage=off
@@ -101,7 +94,6 @@ yabai -m rule --add app="Parallels" manage=off
 yabai -m rule --add app="^Affinity Photo" manage=off
 yabai -m rule --add app="^≈" title="^Vivaldi Settings" manage=off
 
-yabai -m rule --add app="^zoom.us" sub-layer=above manage=off
 yabai -m rule --add app="Epic*" manage=off
 yabai -m rule --add app="Twinmotion*" manage=off
 yabai -m rule --add app="Adobe*" manage=off
@@ -109,64 +101,21 @@ yabai -m rule --add app="Adobe*" manage=off
 yabai -m rule --add app="Fonts*" manage=off
 yabai -m rule --add app="Font Book" manage=off
 
-# disable focus_follows_mouse when a Zoom window is focused
-yabai -m signal --add event=window_focused app=^zoom.us$ action="yabai -m config focus_follows_mouse off"
-# renable focus_follows_mouse autofocus after Zoom meeting is finished
-yabai -m signal --add event=application_front_switched app=^zoom.us$ action="yabai -m config focus_follows_mouse autofocus"
-yabai -m signal --add event=application_terminated app=^zoom.us$ action="yabai -m config focus_follows_mouse autofocus"
-yabai -m signal --add event=application_hidden app=^zoom.us$ action="yabai -m config focus_follows_mouse autofocus"
-yabai -m signal --add event=window_destroyed app=^zoom.us$ action="yabai -m config focus_follows_mouse autofocus"
-yabai -m signal --add event=window_minimized app=^zoom.us$ action="yabai -m config focus_follows_mouse autofocus"
 
 
+# disable focus_follows_mouse when a Microsoft Excel app window is focused
+yabai -m signal --add event=window_focused app="^Microsoft Excel"  action="yabai -m config mouse_follows_focus on"
+# renable focus_follows_mouse autofocus after Microsoft Excel
+yabai -m signal --add event=application_front_switched app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=application_terminated app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=application_hidden app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=window_destroyed app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=window_minimized app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
 
 
-## disable focus_follows_mouse when a Adobes app window is focused
-#yabai -m signal --add event=window_focused app=^Adobe action="yabai -m config focus_follows_mouse off"
-## renable focus_follows_mouse autofocus after Adobe meeting is finished
-#yabai -m signal --add event=application_front_switched app=^Adobe action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_terminated app=^Adobe action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_hidden app=^Adobe action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_destroyed app=^Adobe action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_minimized app=^Adobe action="yabai -m config focus_follows_mouse autofocus"
-#
-#
-#
-## disable focus_follows_mouse when a Twinmotion app window is focused
-#yabai -m signal --add event=window_focused app=^Twinmotion action="yabai -m config focus_follows_mouse off"
-## renable focus_follows_mouse autofocus after Twinmotion meeting is finished
-#yabai -m signal --add event=application_front_switched app=^Twinmotion action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_terminated app=^Twinmotion action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_hidden app=^Twinmotion action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_destroyed app=^Twinmotion action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_minimized app=^Twinmotion action="yabai -m config focus_follows_mouse autofocus"
-#
-## disable focus_follows_mouse when a Archicad app window is focused
-#yabai -m signal --add event=window_focused app=^Archicad action="yabai -m config focus_follows_mouse off"
-## renable focus_follows_mouse autofocus after Archicad meeting is finished
-#yabai -m signal --add event=application_front_switched app=^Archicad action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_terminated app=^Archicad action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_hidden app=^Archicad action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_destroyed app=^Archicad action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_minimized app=^Archicad action="yabai -m config focus_follows_mouse autofocus"
-#
-## disable focus_follows_mouse when a DaVinci app window is focused
-#yabai -m signal --add event=window_focused app=^DaVinci action="yabai -m config focus_follows_mouse off"
-## renable focus_follows_mouse autofocus after DaVinci meeting is finished
-#yabai -m signal --add event=application_front_switched app=^DaVinci action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_terminated app=^DaVinci action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_hidden app=^DaVinci action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_destroyed app=^DaVinci action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_minimized app=^DaVinci action="yabai -m config focus_follows_mouse autofocus"
-#
-## disable focus_follows_mouse when a Microsoft Excel app window is focused
-#yabai -m signal --add event=window_focused app="^Microsoft Excel" action="yabai -m config focus_follows_mouse off"
-## renable focus_follows_mouse autofocus after Microsoft Excel meeting is finished
-#yabai -m signal --add event=application_front_switched app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_terminated app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=application_hidden app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_destroyed app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
-#yabai -m signal --add event=window_minimized app="^Microsoft Excel" action="yabai -m config focus_follows_mouse autofocus"
+#yabai -m rule --add app="^Microsoft Excel"  subrole="AXFloatingWindow" sticky=on
+
+
 
 #yabai -m config window_opacity off
 #yabai -m config window_opacity_duration 0.0
