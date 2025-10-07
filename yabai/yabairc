@@ -106,11 +106,11 @@ yabai -m rule --add app="Font Book" manage=off
 # disable focus_follows_mouse when a Microsoft Excel app window is focused
 yabai -m signal --add event=window_focused app="^Microsoft Excel"  action="yabai -m config mouse_follows_focus on"
 # renable focus_follows_mouse autofocus after Microsoft Excel
-yabai -m signal --add event=application_front_switched app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
-yabai -m signal --add event=application_terminated app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
-yabai -m signal --add event=application_hidden app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
-yabai -m signal --add event=window_destroyed app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
-yabai -m signal --add event=window_minimized app="^Microsoft Excel" subrole="AXStandardWindow" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=application_front_switched app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=application_terminated app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=application_hidden app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=window_destroyed app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+yabai -m signal --add event=window_minimized app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
 
 
 #yabai -m rule --add app="^Microsoft Excel"  subrole="AXFloatingWindow" sticky=on
@@ -126,3 +126,6 @@ yabai -m config menubar_opacity 0.8
 
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
+
+bash -c 'while true; do yabai -m config focus_follows_mouse autoraise; sleep 60; done'
+

@@ -92,7 +92,7 @@ ctrl + cmd - i : for wid in $(yabai -m query --windows | jq '.[] | select(.app =
 ctrl + cmd - t : for wid in $(yabai -m query --windows | jq '.[] | select(.app? | match("Microsoft Teams")) | .id'); do yabai -m window $wid --space mouse --focus; done; \
                  open -a "/Applications/Microsoft Teams.app";
                  
-alt + cmd - r: killall "Bartender 5"; open -a "/Applications/Bartender 5.app"  
+alt + cmd - r: killall "Bartender 6"; open -a "/Applications/Bartender 6.app"  
 
 cmd + alt - q: osascript -e 'tell application "Terminal" to do script "yabai -m query --windows"'
 
