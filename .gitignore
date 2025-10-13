@@ -2,6 +2,7 @@
 !.gitignore
 
 
+!hammerspoon/
 !sketchybar/
 !skhd/
 !yabai/

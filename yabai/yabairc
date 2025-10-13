@@ -117,6 +117,10 @@ yabai -m signal --add event=window_minimized app="^Microsoft Excel" action="yaba
 
 
 
+#
+# TODO: find the way to detect blur event with focus_follows_mouse off
+#
+
 yabai -m signal --add event=window_focused app="^TickTick"  action="yabai -m config focus_follows_mouse off"
 ## re-enable
 yabai -m signal --add event=application_front_switched app="^TickTick" action="yabai -m config focus_follows_mouse autoraise"
