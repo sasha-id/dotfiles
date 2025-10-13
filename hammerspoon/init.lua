@@ -11,10 +11,14 @@ end
 
 local function startMouseWatcher(win)
   stopMouseWatcher()
+  if not win then return end
   local frame = win:frame()
+  if not frame then return end
+  local frameRight = frame.x + frame.w
+  local frameBottom = frame.y + frame.h
   mouseWatcher = hs.eventtap.new({ hs.eventtap.event.types.mouseMoved }, function()
     local pt = hs.mouse.absolutePosition()
-    if not hs.geometry.rect(frame):contains(pt) then
+    if pt.x < frame.x or pt.x > frameRight or pt.y < frame.y or pt.y > frameBottom then
       runYabai("config", "focus_follows_mouse", "autoraise")
       stopMouseWatcher()
     end
@@ -22,9 +26,9 @@ local function startMouseWatcher(win)
 end
 
 tickWatcher = hs.window.filter.new(false)
-tickWatcher:setAppFilter("TickTick", { allowTitles = true })
+tickWatcher:setAppFilter("TickTick", { allowTitles = {".*"} })
 tickWatcher:subscribe(hs.window.filter.windowFocused, function(win)
-  runYabai("config", "focus_follows_mouse", "off")
+  -- runYabai("config", "focus_follows_mouse", "off")
   startMouseWatcher(win)
 end)
 tickWatcher:subscribe({
