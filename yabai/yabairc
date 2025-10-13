@@ -38,7 +38,7 @@ yabai -m config window_gap 6
 
 
 # center mouse on window with focus
-yabai -m config mouse_follows_focus off
+#yabai -m config mouse_follows_focus off
 yabai -m config focus_follows_mouse autoraise
 
 
@@ -104,19 +104,21 @@ yabai -m rule --add app="Font Book" manage=off
 
 
 
-# disable focus_follows_mouse when a Microsoft Excel app window is focused
-yabai -m signal --add event=window_focused app="^Microsoft Excel"  action="yabai -m config mouse_follows_focus on"
-# renable focus_follows_mouse autofocus after Microsoft Excel
-yabai -m signal --add event=application_front_switched app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
-yabai -m signal --add event=application_terminated app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
-yabai -m signal --add event=application_hidden app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
-yabai -m signal --add event=window_destroyed app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
-yabai -m signal --add event=window_minimized app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+## disable focus_follows_mouse when a Microsoft Excel app window is focused
+#yabai -m signal --add event=window_focused app="^Microsoft Excel"  action="yabai -m config mouse_follows_focus on"
+## renable focus_follows_mouse autofocus after Microsoft Excel
+#yabai -m signal --add event=application_front_switched app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+#yabai -m signal --add event=application_terminated app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+#yabai -m signal --add event=application_hidden app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+#yabai -m signal --add event=window_destroyed app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
+#yabai -m signal --add event=window_minimized app="^Microsoft Excel" action="yabai -m config mouse_follows_focus off"
 
 
+# TickTick is handled by Hammerspoon, because it needs to disable focus_follows_mouse when a notification window is focused, but re-enable it when the main app window is focused.
 
-yabai -m signal --add event=window_focused app="^TickTick"  action="yabai -m config focus_follows_mouse off"
+#yabai -m signal --add event=window_focused app="^TickTick"  action="yabai -m config focus_follows_mouse off"
 ## re-enable THIS WON'T WORK, implemented using hammerspoon!
+
 #yabai -m signal --add event=application_front_switched app="^TickTick" action="yabai -m config focus_follows_mouse autoraise"
 #yabai -m signal --add event=application_terminated app="^TickTick" action="yabai -m config focus_follows_mouse autoraise"
 #yabai -m signal --add event=application_hidden app="^TickTick" action="yabai -m config focus_follows_mouse autoraise"
@@ -125,9 +127,6 @@ yabai -m signal --add event=window_focused app="^TickTick"  action="yabai -m con
 
 
 
-
-#yabai -m rule --add app="TickTick" subrole="AXStandardWindow" sub-layer=below manage=on
-#yabai -m rule --add app="TickTick" subrole="AXDialog" sub-layer=above  manage=on
 
 
 
