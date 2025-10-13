@@ -1,8 +1,14 @@
 local yabai = "/opt/homebrew/bin/yabai" -- adjust if needed
 local tickWatcher, mouseWatcher
+local lastObservedApp
 
 local function runYabai(...)
   hs.task.new(yabai, nil, function() return false end, { "-m", ... }):start()
+end
+
+local function frontmostAppName()
+  local app = hs.application.frontmostApplication()
+  return app and app:name() or nil
 end
 
 local function stopMouseWatcher()
@@ -27,9 +33,10 @@ end
 
 tickWatcher = hs.window.filter.new(false)
 tickWatcher:setAppFilter("TickTick", { allowTitles = {".*"} })
-tickWatcher:subscribe(hs.window.filter.windowFocused, function(win)
+tickWatcher:subscribe(hs.window.filter.windowFocused, function(win, appName)
   -- runYabai("config", "focus_follows_mouse", "off")
   startMouseWatcher(win)
+  lastObservedApp = appName or frontmostAppName()
 end)
 tickWatcher:subscribe({
   hs.window.filter.windowDestroyed,
@@ -37,6 +44,11 @@ tickWatcher:subscribe({
   hs.window.filter.windowMinimized,
   hs.window.filter.windowHidden,
 }, function()
-  runYabai("config", "focus_follows_mouse", "autoraise")
-  stopMouseWatcher()
+  local currentApp = frontmostAppName()
+  if currentApp ~= lastObservedApp then
+    lastObservedApp = currentApp
+    runYabai("config", "focus_follows_mouse", "autoraise")
+    stopMouseWatcher()
+  end
 end)
+lastObservedApp = frontmostAppName()
