@@ -35,7 +35,7 @@ tickWatcher = hs.window.filter.new(false)
 tickWatcher:setAppFilter("TickTick", { allowTitles = {"TickTick"} })
 tickWatcher:subscribe(hs.window.filter.windowFocused, function(win, appName, event)
   local title = win and win:title() or "<no title>"
-  hs.printf("[TickTick watcher] event=%s app=%s title=%s", event or "windowFocused", appName or "<no app>", title)
+  -- hs.printf("[TickTick watcher] event=%s app=%s title=%s", event or "windowFocused", appName or "<no app>", title)
   runYabai("config", "focus_follows_mouse", "off")
   startMouseWatcher(win)
   lastObservedApp = appName or frontmostAppName()
@@ -50,7 +50,7 @@ tickWatcher:subscribe({
   local title = win:title()
 
   if title ~= "TickTick" then return end
-      hs.printf("[TickTick watcher] event=%s app=%s title=%s currentApp=%s lastObservedApp=%s", event or "<no event>", appName or "<no app>", title, currentApp, lastObservedApp)
+  -- hs.printf("[TickTick watcher] event=%s app=%s title=%s currentApp=%s lastObservedApp=%s", event or "<no event>", appName or "<no app>", title, currentApp, lastObservedApp)
 
   local currentApp = frontmostAppName()
   if currentApp ~= lastObservedApp then
