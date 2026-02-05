@@ -98,3 +98,6 @@ cmd + alt - q: osascript -e 'tell application "Terminal" to do script "yabai -m 
 
 # ctrl + = with passthrough, activate menubar and move mouse
 # ctrl - 0x32 : /usr/bin/python3 /Users/sash/.config/scripts/move_mouse_top_left_corner.py
+
+
+alt + cmd - space : open -a "/Applications/Claude.app"

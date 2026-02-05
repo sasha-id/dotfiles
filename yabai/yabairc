@@ -7,6 +7,7 @@ yabai -m signal --add event=window_focused action="sketchybar --trigger window_f
 #yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 #yabai -m signal --add event=application_front_switched action="yabai -m window --sub-layer normal"
 
+yabai -m signal --add event=window_destroyed action="yabai -m space --balance"
 
 $HOME/.config/yabai/create_spaces.sh
 
