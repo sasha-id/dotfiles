@@ -33,31 +33,35 @@ end
 
 tickWatcher = hs.window.filter.new(false)
 tickWatcher:setAppFilter("TickTick", { allowTitles = {"TickTick"} })
+
 tickWatcher:subscribe(hs.window.filter.windowFocused, function(win, appName, event)
-  local title = win and win:title() or "<no title>"
-  -- hs.printf("[TickTick watcher] event=%s app=%s title=%s", event or "windowFocused", appName or "<no app>", title)
   runYabai("config", "focus_follows_mouse", "off")
   startMouseWatcher(win)
   lastObservedApp = appName or frontmostAppName()
 end)
+
 tickWatcher:subscribe({
   hs.window.filter.windowDestroyed,
   hs.window.filter.windowUnfocused,
   hs.window.filter.windowMinimized,
   hs.window.filter.windowHidden,
 }, function(win, appName, event)
-  if not win then return end
-  local title = win:title()
-
-  if title ~= "TickTick" then return end
-  -- hs.printf("[TickTick watcher] event=%s app=%s title=%s currentApp=%s lastObservedApp=%s", event or "<no event>", appName or "<no app>", title, currentApp, lastObservedApp)
-
-  local currentApp = frontmostAppName()
-  if currentApp ~= lastObservedApp then
-
-    lastObservedApp = currentApp
+  -- Always re-enable on destroy — window object may be stale/nil
+  if event == "windowDestroyed" then
     runYabai("config", "focus_follows_mouse", "autoraise")
     stopMouseWatcher()
+    lastObservedApp = frontmostAppName()
+    return
   end
+
+  if not win then return end
+  local title = win:title()
+  if not title or title ~= "TickTick" then return end
+
+  -- Unconditionally re-enable autoraise
+  lastObservedApp = frontmostAppName()
+  runYabai("config", "focus_follows_mouse", "autoraise")
+  stopMouseWatcher()
 end)
+
 lastObservedApp = frontmostAppName()
