@@ -1,0 +1,21 @@
+
+auto-update-channel = tip
+
+copy-on-select = false
+
+focus-follows-mouse = true
+macos-option-as-alt = true
+
+# Visible split divider - pick a bright/contrasting color
+split-divider-color = #5a7a5a
+
+# Remove titlebar (macOS - keeps rounded corners)
+macos-titlebar-style = hidden
+
+# Enter shift
+keybind = shift+enter=text:\n
+
+
+keybind = cmd+f=start_search
+keybind = cmd+g=navigate_search:next
+keybind = cmd+shift+g=navigate_search:previous
