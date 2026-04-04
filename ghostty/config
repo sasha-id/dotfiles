@@ -16,6 +16,3 @@ macos-titlebar-style = hidden
 keybind = shift+enter=text:\n
 
 
-keybind = cmd+f=start_search
-keybind = cmd+g=navigate_search:next
-keybind = cmd+shift+g=navigate_search:previous
